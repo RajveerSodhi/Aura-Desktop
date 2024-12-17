@@ -1,23 +1,13 @@
 import SwiftUI
 
-struct Snowflake: Identifiable {
-    let id: UUID
-    var x: CGFloat
-    var y: CGFloat
-    var size: CGFloat
-    var speed: CGFloat
-}
-
 struct ContentView: View {
     @State private var snowflakes: [Snowflake] = []
     let maxSnowflakes = 300
 
     var body: some View {
         ZStack {
-            // Light blue background to simulate a cold sky
-            Color.blue.opacity(0.1)
+            Color.blue.opacity(0.15)
 
-            // Use Canvas to efficiently draw multiple snowflakes
             Canvas { context, size in
                 for snowflake in snowflakes {
                     let rect = CGRect(
@@ -32,12 +22,10 @@ struct ContentView: View {
             .ignoresSafeArea()
         }
         .onAppear {
-            // Periodically add snowflakes until we reach our limit
-            Timer.scheduledTimer(withTimeInterval: 0.45, repeats: true) { _ in
+            Timer.scheduledTimer(withTimeInterval: 0.4, repeats: true) { _ in
                 addSnowflake(screenSize: NSScreen.main?.frame.size ?? .zero)
             }
 
-            // Update snowflake positions at ~60 fps
             Timer.scheduledTimer(withTimeInterval: 1.0/60.0, repeats: true) { _ in
                 moveSnowflakes(screenSize: NSScreen.main?.frame.size ?? .zero)
             }
@@ -48,13 +36,17 @@ struct ContentView: View {
         guard screenSize.width > 0, screenSize.height > 0 else { return }
         guard snowflakes.count < maxSnowflakes else { return }
 
-        let snowflake = Snowflake(
+        var snowflake = Snowflake(
             id: UUID(),
             x: CGFloat.random(in: 0...screenSize.width),
-            y: -10, // Start above the top of the screen
+            y: -10,
             size: CGFloat.random(in: 5...13),
-            speed: CGFloat.random(in: 1...3)
+            speed: CGFloat.random(in: 1...3),
+            angle: 30.0
         )
+        if snowflake.angle != 0.0 {
+            snowflake.x =  CGFloat.random(in: 0...2*screenSize.width + 10)
+        }
         snowflakes.append(snowflake)
     }
 
@@ -63,6 +55,7 @@ struct ContentView: View {
 
         for i in snowflakes.indices {
             snowflakes[i].y += snowflakes[i].speed
+            snowflakes[i].x -= tan(90 - snowflakes[i].angle)*snowflakes[i].speed
 
             
             if snowflakes[i].y > screenSize.height + 10 {
