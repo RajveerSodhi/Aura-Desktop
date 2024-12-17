@@ -21,7 +21,7 @@ struct SnowBottomView: View {
             .ignoresSafeArea()
         }
         .onAppear {
-            Timer.scheduledTimer(withTimeInterval: 7.0, repeats: false) { _ in
+            Timer.scheduledTimer(withTimeInterval: 6.0, repeats: false) { _ in
                 initializeSnowflakes(screenSize: NSScreen.main?.frame.size ?? .zero)
                 scheduleRandomTimer()
             }

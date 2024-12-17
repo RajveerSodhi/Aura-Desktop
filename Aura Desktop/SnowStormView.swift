@@ -48,6 +48,9 @@ struct SnowStormView: View {
                 }
             }
             .ignoresSafeArea()
+            
+            SnowBottomView()
+            RainBottomView()
         }
         .onAppear {
             initializeRaindrops(screenSize: NSScreen.main?.frame.size ?? .zero)
