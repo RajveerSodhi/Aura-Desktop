@@ -5,13 +5,15 @@ struct SnowView: View {
     let maxSnowflakes = 200
     let angle: Double = 45.0
     let direction: Double = -1.0
-    let color: Color = Color(.white)
+    let backgroundColor: Color = Color(.blue)
+    let backgroundOpacity: Double = 0.2
+    let snowColor: Color = Color(.white)
     
     @State private var theta: Double = 0.0
 
     var body: some View {
         ZStack {
-            Color.blue.opacity(0.2)
+            backgroundColor.opacity(backgroundOpacity)
 
             Canvas { context, size in
                 for snowflake in snowflakes {
@@ -21,7 +23,7 @@ struct SnowView: View {
                         width: snowflake.size,
                         height: snowflake.size
                     )
-                    context.fill(Path(ellipseIn: rect), with: .color(color))
+                    context.fill(Path(ellipseIn: rect), with: .color(snowColor))
                 }
             }
             .ignoresSafeArea()

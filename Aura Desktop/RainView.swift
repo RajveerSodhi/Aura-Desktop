@@ -6,10 +6,12 @@ struct RainView: View {
     let angle: Double = 30.0
     let direction: Double = -1.0
     let color: Color = Color(.gray)
+    let backgroundColor: Color = Color(.black)
+    let backgroundOpacity: Double = 0.2
 
     var body: some View {
         ZStack {
-            Color.black.opacity(0.2)
+            backgroundColor.opacity(backgroundOpacity)
 
             Canvas { context, size in
                 for raindrop in raindrops {
@@ -17,7 +19,7 @@ struct RainView: View {
                         let rect = CGRect(
                             x: raindrop.x,
                             y: raindrop.y,
-                            width: 3,
+                            width: 4,
                             height: raindrop.length
                         )
                         
