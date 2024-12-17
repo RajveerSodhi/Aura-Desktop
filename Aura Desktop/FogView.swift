@@ -1,11 +1,12 @@
 import SwiftUI
 
 struct FogView: View {
+    let maxFogStreaks: Int
+    let fogColor: Color
+    let fogOpacity: Double
+    let blur: Double
+    
     @State private var fogStreaks: [FogStreak] = []
-    let maxFogStreaks = 10
-    let fogColor: Color = Color(.white)
-    let fogOpacity = 0.4
-    let blur = 25.0
     
     var body: some View {
         ZStack {

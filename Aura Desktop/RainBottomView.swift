@@ -2,9 +2,11 @@ import SwiftUI
 
 struct RainBottomView: View {
     @State private var raindrops: [Raindrop] = []
-    let maxRaindrops = 80
-    let raindropSize = 5.0
-    let rainColor: Color = Color(.gray)
+    let maxRaindrops: Int
+    let rainColor: Color
+    let startDelay: Double
+    
+    let raindropSize: Double = 5.0
 
     var body: some View {
         ZStack {
@@ -23,7 +25,7 @@ struct RainBottomView: View {
         }
         .onAppear {
             initializeRaindrops(screenSize: NSScreen.main?.frame.size ?? .zero)
-            Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+            Timer.scheduledTimer(withTimeInterval: startDelay, repeats: false) { _ in
                 Timer.scheduledTimer(withTimeInterval: 1.0/30.0, repeats: true) { _ in
                     let number = Int.random(in: 1...4)
                     for _ in 0..<number {

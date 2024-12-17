@@ -2,7 +2,10 @@ import SwiftUI
 
 struct SnowBottomView: View {
     @State private var snowflakes: [Snowflake] = []
-    let maxSnowflakes = 80
+    
+    let maxSnowflakes: Int
+    let startDelay: Double
+    
     let snowColor: Color = Color(.white)
 
     var body: some View {
@@ -21,7 +24,7 @@ struct SnowBottomView: View {
             .ignoresSafeArea()
         }
         .onAppear {
-            Timer.scheduledTimer(withTimeInterval: 6.0, repeats: false) { _ in
+            Timer.scheduledTimer(withTimeInterval: startDelay, repeats: false) { _ in
                 initializeSnowflakes(screenSize: NSScreen.main?.frame.size ?? .zero)
                 scheduleRandomTimer()
             }

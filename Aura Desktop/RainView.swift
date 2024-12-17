@@ -2,12 +2,21 @@ import SwiftUI
 
 struct RainView: View {
     @State private var raindrops: [Raindrop] = []
-    var maxRaindrops = 400
-    let angle: Double = 30.0
+    
+    var maxRaindrops: Int
+    let angle: Double
+    let color: Color
+    let backgroundColor: Color
+    let backgroundOpacity: Double
+    
+    let minLength: Double
+    let maxLength: Double
+    let minSpeed: Double
+    let maxSpeed: Double
+    let minStartY: Double
+    let maxStartY: Double
+    
     let direction: Double = -1.0
-    let color: Color = Color(.gray)
-    let backgroundColor: Color = Color(.black)
-    let backgroundOpacity: Double = 0.2
 
     var body: some View {
         ZStack {
@@ -33,8 +42,6 @@ struct RainView: View {
                     }
                 }
             .ignoresSafeArea()
-            
-            RainBottomView()
         }
         .onAppear {
             initializeRaindrops(screenSize: NSScreen.main?.frame.size ?? .zero)
@@ -49,23 +56,19 @@ struct RainView: View {
         guard screenSize.width > 0, screenSize.height > 0 else { return }
         guard raindrops.count < maxRaindrops else { return }
         
-        let maxX = angle == 0 ? screenSize.width : (2*screenSize.width)
-        
         raindrops = (0...maxRaindrops).map { _ in
             Raindrop(
                 id: UUID(),
-                x: CGFloat.random(in: 0...maxX),
-                y: -1*CGFloat.random(in: 0...800),
-                length: CGFloat.random(in: 10...26),
-                speed: CGFloat.random(in: 6...12)
+                x: CGFloat.random(in: 0...screenSize.width * (1 + (angle)/45.0)),
+                y: -1*CGFloat.random(in: minStartY...maxStartY),
+                length: CGFloat.random(in: minLength...maxLength),
+                speed: CGFloat.random(in: minSpeed...maxSpeed)
             )
         }
     }
 
     func moveRaindrop(screenSize: CGSize) {
         guard screenSize.width > 0, screenSize.height > 0 else { return }
-        
-        let maxX = angle == 0 ? screenSize.width : (2*screenSize.width)
         
         for i in raindrops.indices {
             raindrops[i].y += raindrops[i].speed
@@ -75,9 +78,9 @@ struct RainView: View {
             
             if raindrops[i].y > screenSize.height + 10 {
                 raindrops[i].y = 0
-                raindrops[i].length = CGFloat.random(in: 10...26)
-                raindrops[i].speed = CGFloat.random(in: 6...12)
-                raindrops[i].x = CGFloat.random(in: 0...maxX)
+                raindrops[i].length = CGFloat.random(in: minLength...maxLength)
+                raindrops[i].speed = CGFloat.random(in: minSpeed...maxSpeed)
+                raindrops[i].x = CGFloat.random(in: 0...screenSize.width * (1 + (angle)/45.0))
             }
         }
     }

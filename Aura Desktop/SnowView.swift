@@ -2,12 +2,25 @@ import SwiftUI
 
 struct SnowView: View {
     @State private var snowflakes: [Snowflake] = []
-    let maxSnowflakes = 200
-    let angle: Double = 0.0
-    let direction: Double = -1.0
-    let backgroundColor: Color = Color(.blue)
-    let backgroundOpacity: Double = 0.2
+    
+    let maxSnowflakes: Int
+    let angle: Double
+    let backgroundColor: Color
+    let backgroundOpacity: Double
+    
+    let minSize: Double
+    let maxSize: Double
+    let minSpeed: Double
+    let maxSpeed: Double
+    let minStartY: Double
+    let maxStartY: Double
+    let wind: Bool
+    
+    let minAmplitude: Double = 0.0
+    let maxAmplitude: Double = 1.0
+    
     let snowColor: Color = Color(.white)
+    let direction: Double = -1.0
     
     @State private var theta: Double = 0.0
 
@@ -27,8 +40,6 @@ struct SnowView: View {
                 }
             }
             .ignoresSafeArea()
-            
-            SnowBottomView()
         }
         .onAppear {
             initializeSnowflakes(screenSize: NSScreen.main?.frame.size ?? .zero)
@@ -42,42 +53,39 @@ struct SnowView: View {
     func initializeSnowflakes(screenSize: CGSize) {
         guard screenSize.width > 0, screenSize.height > 0 else { return }
         
-        let maxX = angle == 0 ? screenSize.width : (2*screenSize.width)
-        
         snowflakes = (0...maxSnowflakes).map { _ in
             Snowflake(
                 id: UUID(),
-                x: CGFloat.random(in: 0...maxX),
-                y: -1*CGFloat.random(in: 0...1000),
-                size: CGFloat.random(in: 5...13),
-                speed: CGFloat.random(in: 1...3),
-                amplitude: CGFloat.random(in: 0...1)
+                x: CGFloat.random(in: 0...screenSize.width * (1 + (angle)/45.0)),
+                y: -1*CGFloat.random(in: minStartY...maxStartY),
+                size: CGFloat.random(in: minSize...maxSize),
+                speed: CGFloat.random(in: minSpeed...maxSpeed),
+                amplitude: CGFloat.random(in: minAmplitude...maxAmplitude)
             )
         }
     }
 
     func moveSnowflakes(screenSize: CGSize) {
         guard screenSize.width > 0, screenSize.height > 0 else { return }
-
-        let maxX = angle == 0 ? screenSize.width : (2*screenSize.width)
+        
         theta += 0.001
         
         for i in snowflakes.indices {
             snowflakes[i].y += snowflakes[i].speed
         
-            
-            snowflakes[i].x += snowflakes[i].amplitude * sin((theta + snowflakes[i].y) / 100.0)
-
+            if wind {
+                snowflakes[i].x += snowflakes[i].amplitude * sin((theta + snowflakes[i].y) / 100.0)
+            }
             
             if angle != 0.0 {
                 snowflakes[i].x += direction * tan(90 - angle) * snowflakes[i].speed
             }
             
             if snowflakes[i].y > screenSize.height + 10 {
-                snowflakes[i].amplitude = CGFloat.random(in: 0...1)
-                snowflakes[i].y = -1*CGFloat.random(in: 0...1000)
-                snowflakes[i].speed = CGFloat.random(in: 1...3)
-                snowflakes[i].x = CGFloat.random(in: 0...maxX)
+                snowflakes[i].amplitude = CGFloat.random(in: minAmplitude...maxAmplitude)
+                snowflakes[i].y = -1*CGFloat.random(in: minStartY...maxStartY)
+                snowflakes[i].speed = CGFloat.random(in: minSpeed...maxSpeed)
+                snowflakes[i].x = CGFloat.random(in: 0...screenSize.width * (1 + (angle)/45.0))
             }
         }
     }
