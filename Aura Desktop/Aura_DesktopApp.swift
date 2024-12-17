@@ -23,7 +23,7 @@ struct Aura_DesktopApp: App {
             window.collectionBehavior = [.canJoinAllSpaces, .stationary]
 
             // Set SwiftUI view
-            window.contentView = NSHostingView(rootView: SnowStormView())
+            window.contentView = NSHostingView(rootView: SnowBottomView())
             window.makeKeyAndOrderFront(nil)
             window.orderBack(nil) // Send to the back layer
             Self.desktopWindow = window
