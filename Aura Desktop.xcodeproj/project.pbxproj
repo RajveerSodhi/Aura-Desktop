@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		55C1897F2D11A8D1002C5881 /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1897E2D11A8D0002C5881 /* Cloud.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		55C189352D10D483002C5881 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		55C189232D10D480002C5881 /* Aura Desktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Aura Desktop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C189342D10D483002C5881 /* Aura DesktopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Aura DesktopTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C1893E2D10D483002C5881 /* Aura DesktopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Aura DesktopUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		55C1897E2D11A8D0002C5881 /* Cloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cloud.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +80,7 @@
 		55C1891A2D10D480002C5881 = {
 			isa = PBXGroup;
 			children = (
+				55C1897E2D11A8D0002C5881 /* Cloud.swift */,
 				55C189252D10D480002C5881 /* Aura Desktop */,
 				55C189372D10D483002C5881 /* Aura DesktopTests */,
 				55C189412D10D483002C5881 /* Aura DesktopUITests */,
@@ -236,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55C1897F2D11A8D1002C5881 /* Cloud.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
