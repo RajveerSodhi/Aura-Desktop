@@ -3,7 +3,7 @@ import SwiftUI
 struct SnowView: View {
     @State private var snowflakes: [Snowflake] = []
     let maxSnowflakes = 200
-    let angle: Double = 45.0
+    let angle: Double = 0.0
     let direction: Double = -1.0
     let backgroundColor: Color = Color(.blue)
     let backgroundOpacity: Double = 0.2
@@ -27,6 +27,8 @@ struct SnowView: View {
                 }
             }
             .ignoresSafeArea()
+            
+            SnowBottomView()
         }
         .onAppear {
             initializeSnowflakes(screenSize: NSScreen.main?.frame.size ?? .zero)
