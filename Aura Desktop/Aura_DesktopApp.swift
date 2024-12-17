@@ -15,17 +15,15 @@ struct Aura_DesktopApp: App {
                 backing: .buffered,
                 defer: false
             )
-            // Configure window to sit behind everything (desktop level)
             window.level = NSWindow.Level(Int(CGWindowLevelForKey(.desktopWindow)))
             window.isOpaque = false
             window.backgroundColor = .clear
             window.ignoresMouseEvents = true
             window.collectionBehavior = [.canJoinAllSpaces, .stationary]
 
-            // Set SwiftUI view
-            window.contentView = NSHostingView(rootView: SnowBottomView())
+            window.contentView = NSHostingView(rootView: RainBottomView())
             window.makeKeyAndOrderFront(nil)
-            window.orderBack(nil) // Send to the back layer
+            window.orderBack(nil)
             Self.desktopWindow = window
         }
     }
