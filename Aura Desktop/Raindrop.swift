@@ -6,5 +6,4 @@ struct Raindrop: Identifiable {
     var y: CGFloat
     var length: CGFloat
     var speed: CGFloat
-    var angle: CGFloat
 }
