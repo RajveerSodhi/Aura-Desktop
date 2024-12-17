@@ -2,9 +2,12 @@ import SwiftUI
 
 struct SnowView: View {
     @State private var snowflakes: [Snowflake] = []
-    let maxSnowflakes = 300
-    let angle: Double = 30.0
+    let maxSnowflakes = 200
+    let angle: Double = 45.0
+    let direction: Double = -1.0
     let color: Color = Color(.white)
+    
+    @State private var theta: Double = 0.0
 
     var body: some View {
         ZStack {
@@ -43,7 +46,8 @@ struct SnowView: View {
                 x: CGFloat.random(in: 0...maxX),
                 y: -1*CGFloat.random(in: 0...1000),
                 size: CGFloat.random(in: 5...13),
-                speed: CGFloat.random(in: 1...3)
+                speed: CGFloat.random(in: 1...3),
+                amplitude: CGFloat.random(in: 0...1)
             )
         }
     }
@@ -52,15 +56,22 @@ struct SnowView: View {
         guard screenSize.width > 0, screenSize.height > 0 else { return }
 
         let maxX = angle == 0 ? screenSize.width : (2*screenSize.width)
+        theta += 0.001
         
         for i in snowflakes.indices {
             snowflakes[i].y += snowflakes[i].speed
+        
+            
+            snowflakes[i].x += snowflakes[i].amplitude * sin((theta + snowflakes[i].y) / 100.0)
+
+            
             if angle != 0.0 {
-                snowflakes[i].x -= tan(90 - angle)*snowflakes[i].speed
+                snowflakes[i].x += direction * tan(90 - angle) * snowflakes[i].speed
             }
             
             if snowflakes[i].y > screenSize.height + 10 {
-                snowflakes[i].y = -10
+                snowflakes[i].amplitude = CGFloat.random(in: 0...1)
+                snowflakes[i].y = -1*CGFloat.random(in: 0...1000)
                 snowflakes[i].speed = CGFloat.random(in: 1...3)
                 snowflakes[i].x = CGFloat.random(in: 0...maxX)
             }

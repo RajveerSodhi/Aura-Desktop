@@ -6,4 +6,5 @@ struct Snowflake: Identifiable {
     var y: CGFloat
     var size: CGFloat
     var speed: CGFloat
+    var amplitude: CGFloat
 }

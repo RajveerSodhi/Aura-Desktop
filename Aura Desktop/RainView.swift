@@ -4,6 +4,7 @@ struct RainView: View {
     @State private var raindrops: [Raindrop] = []
     var maxRaindrops = 400
     let angle: Double = 30.0
+    let direction: Double = -1.0
     let color: Color = Color(.gray)
 
     var body: some View {
@@ -65,7 +66,7 @@ struct RainView: View {
         for i in raindrops.indices {
             raindrops[i].y += raindrops[i].speed
             if angle != 0.0 {
-                raindrops[i].x -= tan(90 - angle)*raindrops[i].speed
+                raindrops[i].x += direction * tan(90 - angle) * raindrops[i].speed
             }
             
             if raindrops[i].y > screenSize.height + 10 {
