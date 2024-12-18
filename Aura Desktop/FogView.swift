@@ -5,6 +5,12 @@ struct FogView: View {
     let fogColor: Color
     let fogOpacity: Double
     let blur: Double
+    let minWidthPercent: Double
+    let maxWidthPercent: Double
+    let minHeight: Double
+    let maxHeight: Double
+    let minSpeed: Double
+    let maxSpeed: Double
     
     @State private var fogStreaks: [FogStreak] = []
     
@@ -78,9 +84,9 @@ struct FogView: View {
                 id: UUID(),
                 x: CGFloat.random(in: -screenSize.width...screenSize.width),
                 y: CGFloat.random(in: 0...screenSize.height),
-                width: CGFloat.random(in: screenSize.width * 0.3...screenSize.width * 0.75),
-                height: CGFloat.random(in: 30...100),
-                speed: CGFloat.random(in: 0.5...2.0),
+                width: CGFloat.random(in: screenSize.width * minWidthPercent / 100.0...screenSize.width * maxWidthPercent / 100.0),
+                height: CGFloat.random(in: minHeight...maxHeight),
+                speed: CGFloat.random(in: minSpeed...maxSpeed),
                 cornerRadius: CGFloat.random(in: 10...40),
                 shapeType: Int.random(in: 1...8)
             )

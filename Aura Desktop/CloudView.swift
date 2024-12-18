@@ -2,16 +2,21 @@ import SwiftUI
 
 struct CloudView: View {
     @State private var clouds: [Cloud] = []
-    let maxClouds = 4
-    let cloudColor: Color = Color(.white)
-    let cloudOpacity = 0.6
+    let maxClouds: Int
+    let cloudColor: Color
+    let cloudOpacity: Double
+    let blur: Double
+    let minSpeed: Double
+    let maxSpeed: Double
+    let minWidthPercent: Double
+    let maxWidthPercent: Double
+    let minHeight: Double
+    let maxHeight: Double
+    
     let cornerRadius = 25.0
-    let blur = 11.0
     
     var body: some View {
         ZStack {
-            Color.clear.ignoresSafeArea()
-            
             Canvas { context, size in
                 for cloud in clouds {
                     let rect = CGRect(
@@ -110,10 +115,10 @@ struct CloudView: View {
             Cloud(
                 id: UUID(),
                 x: CGFloat.random(in: -screenSize.width...screenSize.width),
-                y: CGFloat.random(in: 0...screenSize.height * (2 / 3)),
-                width: CGFloat.random(in: screenSize.width * 0.2...screenSize.width * 0.4),
-                height: CGFloat.random(in: 55...100),
-                speed: CGFloat.random(in: 0.4...0.9),
+                y: CGFloat.random(in: 0...screenSize.height * 0.7),
+                width: CGFloat.random(in: screenSize.width * minWidthPercent / 100.0...screenSize.width * maxWidthPercent / 100.0),
+                height: CGFloat.random(in: minHeight...maxHeight),
+                speed: CGFloat.random(in: minSpeed...maxSpeed),
                 shapeType: Int.random(in: 1...8)
             )
         }
@@ -127,7 +132,7 @@ struct CloudView: View {
                 if clouds[i].x > NSScreen.main!.frame.width + 100 {
                     clouds[i].x = -clouds[i].width
                     clouds[i].y = CGFloat.random(in: 0...(NSScreen.main?.frame.size.height ?? 600))
-                    clouds[i].speed = CGFloat.random(in: 0.5...2.0)
+                    clouds[i].speed = CGFloat.random(in: minSpeed...maxSpeed)
                 }
             }
         }
