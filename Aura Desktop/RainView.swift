@@ -70,11 +70,12 @@ struct RainView: View {
     func moveRaindrop(screenSize: CGSize) {
         guard screenSize.width > 0, screenSize.height > 0 else { return }
         
+        let radians = (angle) * .pi / 180
+        
         for i in raindrops.indices {
             raindrops[i].y += raindrops[i].speed
-            if angle != 0.0 {
-                raindrops[i].x += direction * tan(90 - angle) * raindrops[i].speed
-            }
+            
+            raindrops[i].x += direction * tan(radians) * raindrops[i].speed
             
             if raindrops[i].y > screenSize.height + 10 {
                 raindrops[i].y = 0

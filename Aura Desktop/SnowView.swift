@@ -69,6 +69,7 @@ struct SnowView: View {
         guard screenSize.width > 0, screenSize.height > 0 else { return }
         
         theta += 0.001
+        let radians = (angle) * .pi / 180
         
         for i in snowflakes.indices {
             snowflakes[i].y += snowflakes[i].speed
@@ -77,9 +78,8 @@ struct SnowView: View {
                 snowflakes[i].x += snowflakes[i].amplitude * sin((theta + snowflakes[i].y) / 100.0)
             }
             
-            if angle != 0.0 {
-                snowflakes[i].x += direction * tan(90 - angle) * snowflakes[i].speed
-            }
+                
+            snowflakes[i].x += direction * tan(radians) * snowflakes[i].speed
             
             if snowflakes[i].y > screenSize.height + 10 {
                 snowflakes[i].amplitude = CGFloat.random(in: minAmplitude...maxAmplitude)
