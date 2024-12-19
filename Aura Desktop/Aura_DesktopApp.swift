@@ -21,7 +21,7 @@ struct Aura_DesktopApp: App {
             window.ignoresMouseEvents = true
             window.collectionBehavior = [.canJoinAllSpaces, .stationary]
 
-            window.contentView = NSHostingView(rootView: RainyView())
+            window.contentView = NSHostingView(rootView: DarkCloudyView())
             
             window.makeKeyAndOrderFront(nil)
             window.orderBack(nil)

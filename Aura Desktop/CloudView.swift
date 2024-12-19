@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CloudView: View {
+struct CloudView1: View {
     @State private var clouds: [Cloud] = []
     let maxClouds: Int
     let cloudColor: Color
@@ -12,6 +12,8 @@ struct CloudView: View {
     let maxWidthPercent: Double
     let minHeight: Double
     let maxHeight: Double
+    let cover: Double
+    
     
     let cornerRadius = 25.0
     
@@ -104,7 +106,7 @@ struct CloudView: View {
         }
         .onAppear {
             initializeClouds(screenSize: NSScreen.main?.frame.size ?? .zero)
-            animateClouds()
+            animateClouds(screenSize: NSScreen.main?.frame.size ?? .zero)
         }
     }
     
@@ -115,7 +117,7 @@ struct CloudView: View {
             Cloud(
                 id: UUID(),
                 x: CGFloat.random(in: -screenSize.width...screenSize.width),
-                y: CGFloat.random(in: maxHeight...screenSize.height * 0.7),
+                y: CGFloat.random(in: maxHeight...screenSize.height * cover),
                 width: CGFloat.random(in: screenSize.width * minWidthPercent / 100.0...screenSize.width * maxWidthPercent / 100.0),
                 height: CGFloat.random(in: minHeight...maxHeight),
                 speed: CGFloat.random(in: minSpeed...maxSpeed),
@@ -124,14 +126,14 @@ struct CloudView: View {
         }
     }
     
-    func animateClouds() {
+    func animateClouds(screenSize: CGSize) {
         Timer.scheduledTimer(withTimeInterval: 1.0/60.0, repeats: true) { _ in
             for i in clouds.indices {
                 clouds[i].x += clouds[i].speed
                 
-                if clouds[i].x > NSScreen.main!.frame.width * (1 + maxWidthPercent / 100.0) {
+                if clouds[i].x > screenSize.width * (1 + maxWidthPercent / 100.0) {
                     clouds[i].x = -clouds[i].width
-                    clouds[i].y = CGFloat.random(in: maxHeight...(NSScreen.main?.frame.size.height ?? 600))
+                    clouds[i].y = CGFloat.random(in: maxHeight...screenSize.height * cover)
                     clouds[i].speed = CGFloat.random(in: minSpeed...maxSpeed)
                 }
             }

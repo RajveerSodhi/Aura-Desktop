@@ -13,6 +13,7 @@ struct CloudView2: View {
     let maxWidthPercent: Double
     let minHeight: Double
     let maxHeight: Double
+    let cover: Double
     
     let cloudShapes = ["cloud.fill", "icloud.fill"]
     
@@ -44,7 +45,7 @@ struct CloudView2: View {
             Cloud(
                 id: UUID(),
                 x: CGFloat.random(in: -screenSize.width...screenSize.width),
-                y: CGFloat.random(in: maxHeight...screenSize.height * 0.7),
+                y: CGFloat.random(in: maxHeight...screenSize.height * cover),
                 width: CGFloat.random(in: CGFloat(screenSize.width * (minWidthPercent / 100.0))...CGFloat(screenSize.width * (maxWidthPercent / 100.0))),
                 height: CGFloat.random(in: minHeight...maxHeight),
                 speed: CGFloat.random(in: minSpeed...maxSpeed),
@@ -60,7 +61,7 @@ struct CloudView2: View {
                 
                 if clouds[i].x > screenSize.width * (1 + maxWidthPercent / 100.0) {
                     clouds[i].x = -clouds[i].width
-                    clouds[i].y = CGFloat.random(in: maxHeight...screenSize.height * 0.7)
+                    clouds[i].y = CGFloat.random(in: maxHeight...screenSize.height * cover)
                     clouds[i].speed = CGFloat.random(in: minSpeed...maxSpeed)
                 }
             }

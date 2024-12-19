@@ -12,15 +12,11 @@ struct SunView: View {
     let flareX: CGFloat = 25
     let flareY: CGFloat = 9
     let flareIntensity: CGFloat = 1.0
+    let backgroundOpacity: CGFloat = 0.15
 
     var body: some View {
         ZStack {
-            LinearGradient(
-                gradient: Gradient(colors: [Color.blue.opacity(0.15), Color.white.opacity(0.15)]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
+            DayBackgroundView(backgroundOpacity: backgroundOpacity)
 
             ForEach(0..<whiteRays) { i in
                 Ellipse()
@@ -36,8 +32,9 @@ struct SunView: View {
                 .fill(
                     RadialGradient(
                         gradient: Gradient(colors: [
+                            Color.white.opacity(0.2),
                             Color.yellow.opacity(0.8),
-                            Color.orange.opacity(0.8),
+                            Color.orange.opacity(1.0),
                             Color.clear
                         ]),
                         center: .center,
@@ -47,7 +44,7 @@ struct SunView: View {
                 )
                 .frame(width: sunSize, height: sunSize)
                 .position(x: sunX, y: sunY)
-                .blur(radius: 65)
+                .blur(radius: 60)
             
             ForEach(0..<yellowRays) { i in
                 RoundedRectangle(cornerRadius: 20)

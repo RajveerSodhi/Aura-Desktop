@@ -14,7 +14,8 @@ struct SnowStormView: View {
 
     var body: some View {
         ZStack {
-            backgroundColor.opacity(0.2)
+
+            backgroundColor.opacity(backgroundOpacity)
             
             StormyFogView()
             
