@@ -4,7 +4,7 @@ struct SunnyCloudView: View {
     let maxClouds = 5
     let cloudColor = Color(.white)
     let cloudOpacity = 0.8
-    let blur = 0.0
+    let blur = 12.0
     let minSpeed = 0.35
     let maxSpeed = 0.8
     let minWidthPercent = 18.0

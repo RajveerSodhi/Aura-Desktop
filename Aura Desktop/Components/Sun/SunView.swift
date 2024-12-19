@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SunView: View {
-    @State private var isAnimating = false
+    @State private var rotationAngle: Double = 0.0
     
     let sunX: CGFloat = 200
     let sunY: CGFloat = 180
@@ -13,6 +13,8 @@ struct SunView: View {
     let flareY: CGFloat = 9
     let flareIntensity: CGFloat = 1.0
     let backgroundOpacity: CGFloat = 0.15
+    let animationDuration: Double = 150.0
+    let sunBrightness: CGFloat = 1.0
 
     var body: some View {
         ZStack {
@@ -22,7 +24,7 @@ struct SunView: View {
                 Ellipse()
                     .fill(Color.white.opacity(0.38))
                     .frame(width: 13, height: 1.5*sunSize)
-                    .rotationEffect(Angle(degrees: Double(i) * (360.0/Double(whiteRays))))
+                    .rotationEffect(Angle(degrees: rotationAngle + Double(i) * (360.0 / Double(whiteRays))))
                     .position(x: sunX, y: sunY)
                     .blur(radius: 16)
             }
@@ -32,9 +34,9 @@ struct SunView: View {
                 .fill(
                     RadialGradient(
                         gradient: Gradient(colors: [
-                            Color.white.opacity(0.2),
-                            Color.yellow.opacity(0.8),
-                            Color.orange.opacity(1.0),
+                            Color.white.opacity(0.5 * sunBrightness),
+                            Color.yellow.opacity(0.8 * sunBrightness),
+                            Color.orange.opacity(1.0 * sunBrightness),
                             Color.clear
                         ]),
                         center: .center,
@@ -78,5 +80,17 @@ struct SunView: View {
                 }
             }
         }
+        .onAppear {
+                startAnimation()
+            }
     }
-}
+    
+    func startAnimation() {
+            withAnimation(
+                Animation.linear(duration: animationDuration)
+                    .repeatForever(autoreverses: false)
+            ) {
+                rotationAngle = 360
+            }
+        }
+    }
