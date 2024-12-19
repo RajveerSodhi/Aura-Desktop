@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CloudView2: View {
+struct CloudView3: View {
     @State private var clouds: [Cloud] = []
     
     let maxClouds: Int
@@ -14,15 +14,14 @@ struct CloudView2: View {
     let minHeight: Double
     let maxHeight: Double
     
-    let cloudShapes = ["cloud.fill", "icloud.fill"]
-    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 ForEach(clouds) { cloud in
-                    Image(systemName: cloudShapes[cloud.shapeType])
+                    Image("3DCloud\(cloud.shapeType)")
                         .resizable()
-                        .frame(width: cloud.width, height: cloud.height)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: cloud.width)
                         .opacity(cloudOpacity)
                         .foregroundColor(cloudColor)
                         .position(x: cloud.x, y: cloud.y)
@@ -48,7 +47,7 @@ struct CloudView2: View {
                 width: CGFloat.random(in: CGFloat(screenSize.width * (minWidthPercent / 100.0))...CGFloat(screenSize.width * (maxWidthPercent / 100.0))),
                 height: CGFloat.random(in: minHeight...maxHeight),
                 speed: CGFloat.random(in: minSpeed...maxSpeed),
-                shapeType: Int.random(in: 0...1)
+                shapeType: Int.random(in: 1...10)
             )
         }
     }

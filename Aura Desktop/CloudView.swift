@@ -115,7 +115,7 @@ struct CloudView: View {
             Cloud(
                 id: UUID(),
                 x: CGFloat.random(in: -screenSize.width...screenSize.width),
-                y: CGFloat.random(in: 0...screenSize.height * 0.7),
+                y: CGFloat.random(in: maxHeight...screenSize.height * 0.7),
                 width: CGFloat.random(in: screenSize.width * minWidthPercent / 100.0...screenSize.width * maxWidthPercent / 100.0),
                 height: CGFloat.random(in: minHeight...maxHeight),
                 speed: CGFloat.random(in: minSpeed...maxSpeed),
@@ -129,9 +129,9 @@ struct CloudView: View {
             for i in clouds.indices {
                 clouds[i].x += clouds[i].speed
                 
-                if clouds[i].x > NSScreen.main!.frame.width + 100 {
+                if clouds[i].x > NSScreen.main!.frame.width * (1 + maxWidthPercent / 100.0) {
                     clouds[i].x = -clouds[i].width
-                    clouds[i].y = CGFloat.random(in: 0...(NSScreen.main?.frame.size.height ?? 600))
+                    clouds[i].y = CGFloat.random(in: maxHeight...(NSScreen.main?.frame.size.height ?? 600))
                     clouds[i].speed = CGFloat.random(in: minSpeed...maxSpeed)
                 }
             }

@@ -3,7 +3,7 @@ import SwiftUI
 struct SunnyCloudView: View {
     var body: some View {
         ZStack {
-            CloudView2(maxClouds: 5,
+            CloudView3(maxClouds: 5,
                       cloudColor: Color(.white),
                       cloudOpacity: 0.8,
                       blur: 0.0,
@@ -12,7 +12,7 @@ struct SunnyCloudView: View {
                       minWidthPercent: 18.0,
                       maxWidthPercent: 30.0,
                       minHeight: 70.0,
-                      maxHeight: 200.0
+                      maxHeight: 135.0
             )
         }
     }
