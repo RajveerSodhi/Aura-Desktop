@@ -5,6 +5,8 @@ struct SnowBottomView: View {
     
     let maxSnowflakes: Int
     let startDelay: Double
+    let minSize: CGFloat
+    let maxSize: CGFloat
     
     let snowColor: Color = Color(.white)
 
@@ -39,7 +41,7 @@ struct SnowBottomView: View {
                 id: UUID(),
                 x: CGFloat.random(in: 0...screenSize.width),
                 y: screenSize.height,
-                size: CGFloat.random(in: 5...13),
+                size: CGFloat.random(in: minSize...maxSize),
                 speed: 0,
                 amplitude: 0
             )
@@ -53,7 +55,7 @@ struct SnowBottomView: View {
     func moveSnowflake(screenSize: CGSize, i: Int) {
         guard screenSize.width > 0, screenSize.height > 0 else { return }
         snowflakes[i].x = CGFloat.random(in: 0...1.5*screenSize.width)
-        snowflakes[i].size = CGFloat.random(in: 5...13)
+        snowflakes[i].size = CGFloat.random(in: minSize...maxSize)
         snowflakes[i].y = screenSize.height - snowflakes[i].size
     }
     

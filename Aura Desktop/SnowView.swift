@@ -14,6 +14,7 @@ struct SnowView: View {
     let maxSpeed: Double
     let minStartY: Double
     let maxStartY: Double
+    
     let wind: Bool
     
     let minAmplitude: Double = 0.0
