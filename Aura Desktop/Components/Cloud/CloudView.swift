@@ -135,6 +135,7 @@ struct CloudView1: View {
                     clouds[i].x = -clouds[i].width
                     clouds[i].y = CGFloat.random(in: maxHeight...screenSize.height * cover)
                     clouds[i].speed = CGFloat.random(in: minSpeed...maxSpeed)
+                    clouds[i].shapeType = Int.random(in: 1...8)
                 }
             }
         }

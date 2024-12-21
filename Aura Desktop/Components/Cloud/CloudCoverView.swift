@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CloudCoverView: View {
-    let maxClouds = 15
+    let maxClouds = 2
     let cloudColor = Color(.white)
     let cloudOpacity = 0.8
     let blur = 12.0
