@@ -7,7 +7,7 @@ struct ContentViewController: View {
     
     var body: some View {
         ZStack {
-            weatherView(for: "blowing snow")
+            weatherView(for: "moderate rain")
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
