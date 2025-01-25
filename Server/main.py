@@ -1,10 +1,10 @@
 from os import getenv
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
-from fetch_data import fetch_weather
+from fetch_data import fetch_weather, fetch_coordinates
 from redis_client import cache
 
 load_dotenv()
@@ -41,9 +41,6 @@ async def validate_secret_key(x_key: str = Header(...)):
         raise HTTPException(status_code=401, detail="Invalid Secret Key")
     return x_key
 
-async def format_location(x_key: str = Header(...)):
-    return ["Kelowna, BC, Canada"]
-
 # Root Endpoint
 @app.get("/", include_in_schema=False)
 def root():
@@ -52,7 +49,7 @@ def root():
     }
 
 @app.get("/weather")
-def get_weather_data(location: str = Depends(format_location), key: str = Depends(validate_secret_key)):
+def get_weather_data(location: str, key: str = Depends(validate_secret_key)):
     '''
         Private endpoint for the Aura Desktop app that fetches and caches weather information from external APIs.
         Returns a JSON object with relevant weather information.
@@ -66,12 +63,23 @@ def get_weather_data(location: str = Depends(format_location), key: str = Depend
         if cached_data:
             return json.loads(cached_data)
 
-        #fetch weather data
-        weather_data = retry_on_failure(fetch_weather, 3, 2, location)
+        # fetch location coordinates
+        cached_coords = cache.get(f"COORDS_{location.upper()}")
+        if cached_coords:
+            coords = cached_coords
+        else:
+            coords = retry_on_failure(fetch_coordinates, 3, 2, location)
+            if not coords:
+                raise HTTPException(status_code=404, detail="Location data not found")
+        print("coordinates found!")
+
+        # fetch weather data
+        weather_data = retry_on_failure(fetch_weather, 3, 2, *(coords["lat"], coords["long"]))
         if not weather_data:
             raise HTTPException(status_code=404, detail="Weather data not found")
         print("weather data found!")
 
+        # fetching timestamp
         timestamp = datetime.now(timezone.utc)
         weather_data["timestamp"] = str(timestamp)
 
@@ -83,10 +91,10 @@ def get_weather_data(location: str = Depends(format_location), key: str = Depend
         return weather_data
     
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"UNexpected Error: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Unexpected Error: {str(e)}") from e
 
 @app.get("/test")
 def get_test():
     return {
-        "weather": "test"
-    }
+        "hello": "world"
+}
