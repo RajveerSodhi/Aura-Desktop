@@ -64,5 +64,3 @@ def fetch_weather(lat, long):
     except requests.exceptions.RequestException as e:
         print(f"Error fetching weather data for {lat}N, {long}E : {e}")
         return None
-    
-print(fetch_weather(49.8831, -119.4857))
