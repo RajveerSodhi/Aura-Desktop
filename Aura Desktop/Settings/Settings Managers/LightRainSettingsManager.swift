@@ -32,7 +32,7 @@ class LightRainSettingsManager: ObservableObject, WeatherSettings {
         didSet { UserDefaults.standard.set(angleRange, forKey: "LightRainAngleRange") }
     }
     @Published var xAcceleration: CGFloat {
-        didSet { UserDefaults.standard.set(xAcceleration, forKey: "lightRainXAcceleration") }
+        didSet { UserDefaults.standard.set(xAcceleration, forKey: "LightRainXAcceleration") }
     }
     @Published var yAcceleration: CGFloat {
         didSet { UserDefaults.standard.set(yAcceleration, forKey: "LightRainYAcceleration") }
@@ -55,17 +55,14 @@ class LightRainSettingsManager: ObservableObject, WeatherSettings {
     @Published var alphaRange: CGFloat {
         didSet { UserDefaults.standard.set(alphaRange, forKey: "LightRainAlphaRange") }
     }
-    @Published var textureImage: String {
-        didSet { UserDefaults.standard.set(textureImage, forKey: "LightRainTextureImage") }
-    }
 
     init() {
         let defaults = UserDefaults.standard
         
-        self.birthRate = defaults.object(forKey: "LightRainBirthRate") as? CGFloat ?? 70
-        self.scale = defaults.object(forKey: "LightRainScale") as? CGFloat ?? 1.1
+        self.birthRate = defaults.object(forKey: "LightRainBirthRate") as? CGFloat ?? 65
+        self.scale = defaults.object(forKey: "LightRainScale") as? CGFloat ?? 1.0
         self.scaleRange = defaults.object(forKey: "LightRainScaleRange") as? CGFloat ?? 0.35
-        self.speed = defaults.object(forKey: "LightRainSpeed") as? CGFloat ?? 490
+        self.speed = defaults.object(forKey: "LightRainSpeed") as? CGFloat ?? 470
         self.speedRange = defaults.object(forKey: "LightRainSpeedRange") as? CGFloat ?? 85
         self.angle = defaults.object(forKey: "LightRainAngle") as? CGFloat ?? 0
         self.angleRange = defaults.object(forKey: "LightRainAngleRange") as? CGFloat ?? .pi / 32
@@ -77,6 +74,5 @@ class LightRainSettingsManager: ObservableObject, WeatherSettings {
         self.color = defaults.object(forKey: "LightRainColor") as? NSColor ?? NSColor(red: 139.0/255.0, green: 145.0/255.0, blue: 255.0/255.0, alpha: 1)
         self.alpha = defaults.object(forKey: "LightRainAlpha") as? CGFloat ?? 1.0
         self.alphaRange = defaults.object(forKey: "LightRainAlphaRange") as? CGFloat ?? 0
-        self.textureImage = defaults.object(forKey: "LightRainTextureImage") as? String ?? "light_raindrop"
     }
 }

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct FogView: View {
+struct Fog2View: View {
     let maxFogStreaks: Int
     let fogColor: Color
     let fogOpacity: Double

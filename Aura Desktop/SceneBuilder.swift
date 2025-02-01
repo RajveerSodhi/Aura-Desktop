@@ -137,7 +137,7 @@ class SceneBuilder: SKScene, ObservableObject {
         }
         
         // correct for downward flowing particles
-        if textureImage == "light_raindrop" || textureImage == "heavy_raindrop" || textureImage == "snowflake" {
+        if textureImage == "light_raindrop" || textureImage == "raindrop" || textureImage == "snowflake" {
             self.angle += 270
         }
         

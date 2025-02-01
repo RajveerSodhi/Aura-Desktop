@@ -9,6 +9,6 @@ import SwiftUI
 
 struct LightRainView: View {
     var body: some View {
-        ViewBuilder(settings: LightRainSettingsManager.shared)
+        ViewBuilder(settings: LightRainSettingsManager.shared, textureImage: "light_raindrop")
     }
 }

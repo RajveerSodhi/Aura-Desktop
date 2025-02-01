@@ -23,5 +23,4 @@ protocol WeatherSettings {
     var color: NSColor { get set }
     var alpha: CGFloat { get set }
     var alphaRange: CGFloat { get set }
-    var textureImage: String { get set }
 }

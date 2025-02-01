@@ -9,6 +9,6 @@ import SwiftUI
 
 struct RainView: View {
     var body: some View {
-        ViewBuilder(settings: RainSettingsManager.shared)
+        ViewBuilder(settings: RainSettingsManager.shared, textureImage: "raindrop")
     }
 }

@@ -4,13 +4,14 @@ import SpriteKit
 struct ViewBuilder<T: WeatherSettings & ObservableObject>: View {
     @ObservedObject var settings: T
     @StateObject var scene: SceneBuilder
+    var textureImage: String
     
-    init(settings: T) {
+    init(settings: T, textureImage: String) {
         self.settings = settings
         
         let scene = SceneBuilder(
             birthRate: settings.birthRate,
-            textureImage: settings.textureImage,
+            textureImage: textureImage,
             scale: settings.scale,
             scaleRange: settings.scaleRange,
             angle: settings.angle,
