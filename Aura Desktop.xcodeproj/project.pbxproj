@@ -40,16 +40,6 @@
 			path = "Aura Desktop";
 			sourceTree = "<group>";
 		};
-		55C189372D10D483002C5881 /* Aura DesktopTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Aura DesktopTests";
-			sourceTree = "<group>";
-		};
-		55C189412D10D483002C5881 /* Aura DesktopUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Aura DesktopUITests";
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,8 +72,6 @@
 			children = (
 				55C1897E2D11A8D0002C5881 /* Cloud.swift */,
 				55C189252D10D480002C5881 /* Aura Desktop */,
-				55C189372D10D483002C5881 /* Aura DesktopTests */,
-				55C189412D10D483002C5881 /* Aura DesktopUITests */,
 				55C189242D10D480002C5881 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -136,9 +124,6 @@
 			dependencies = (
 				55C189362D10D483002C5881 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				55C189372D10D483002C5881 /* Aura DesktopTests */,
-			);
 			name = "Aura DesktopTests";
 			packageProductDependencies = (
 			);
@@ -158,9 +143,6 @@
 			);
 			dependencies = (
 				55C189402D10D483002C5881 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				55C189412D10D483002C5881 /* Aura DesktopUITests */,
 			);
 			name = "Aura DesktopUITests";
 			packageProductDependencies = (
