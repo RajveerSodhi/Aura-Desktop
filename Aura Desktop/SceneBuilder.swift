@@ -68,6 +68,7 @@ class SceneBuilder: SKScene, ObservableObject {
         let emitter = SKEmitterNode()
         
         adjustForAngle()
+        adjustPositionForHorizontal()
         
         emitter.targetNode = self
         emitter.particleBirthRate = birthRate
@@ -106,7 +107,14 @@ class SceneBuilder: SKScene, ObservableObject {
         return angle * .pi / 180
     }
     
-    func calculateLifetime() {
+    func calculateHorizontalLifetime() {
+        let distance = size.width + 10 + 100
+        let lifetime = ceil (distance / self.Speed)
+        
+        self.lifetime = lifetime
+    }
+    
+    func calculateFallingLifetime() {
         let width = size.width * (1 + self.angle/60.0)
         let height = size.width + 10
         let diagonal = pow((pow(width, 2) + pow(height, 2)), 0.5)
@@ -115,34 +123,42 @@ class SceneBuilder: SKScene, ObservableObject {
         self.lifetime = lifetime
     }
     
+    func adjustPositionForHorizontal() {
+        if textureImage.contains("fog") || textureImage.contains("cloud") {
+            calculateFallingLifetime()
+        }
+    }
+    
     func adjustForAngle() {
-        // adjust lifetime, birthrate, and emission position range before adding direction
-        let absoluteShift: CGFloat = 1 + self.angle/60.0
-        self.birthRate *= absoluteShift
-        self.emitterPositionRange = CGVector(dx: size.width * absoluteShift, dy: 0)
-        
-        // dynamically calculate lifetime
-        calculateLifetime()
-        
-        // add direction
-        self.angle *= self.direction
-        let relativeShift: CGFloat = 1 - self.angle/60.0
-        
-        // adjust emitter position with angle and direction
-        self.emitterPosition = CGPoint(x: size.width / 2 * relativeShift, y: size.height - 10)
-        
-        // rotate sprites with angle and direction, except if snow since that is round
-        if textureImage != "snowflake" {
-            self.rotAngle = convertToRadians(self.angle)
+        if textureImage.contains("raindrop") || textureImage == "snowflake" {
+            // adjust lifetime, birthrate, and emission position range before adding direction
+            let absoluteShift: CGFloat = 1 + self.angle/60.0
+            self.birthRate *= absoluteShift
+            self.emitterPositionRange = CGVector(dx: size.width * absoluteShift, dy: 0)
+            
+            // dynamically calculate lifetime
+            calculateFallingLifetime()
+            
+            // add direction
+            self.angle *= self.direction
+            let relativeShift: CGFloat = 1 - self.angle/60.0
+            
+            // adjust emitter position with angle and direction
+            self.emitterPosition = CGPoint(x: size.width / 2 * relativeShift, y: size.height - 10)
+            
+            // rotate sprites with angle and direction, except if snow since that is round
+            if textureImage != "snowflake" {
+                self.rotAngle = convertToRadians(self.angle)
+            }
+            
+            // correct for downward flowing particles
+            if textureImage == "light_raindrop" || textureImage == "raindrop" || textureImage == "snowflake" {
+                self.angle += 270
+            }
+            
+            // seet new angle after correction
+            self.angle = convertToRadians(self.angle)
         }
-        
-        // correct for downward flowing particles
-        if textureImage == "light_raindrop" || textureImage == "raindrop" || textureImage == "snowflake" {
-            self.angle += 270
-        }
-        
-        // seet new angle after correction
-        self.angle = convertToRadians(self.angle)
     }
     
     

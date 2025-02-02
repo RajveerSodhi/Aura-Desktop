@@ -9,7 +9,12 @@ import SwiftUI
 
 struct FogView: View {
     var body: some View {
-        ViewBuilder(settings: FogSettingsManager.shared, textureImage: "fog1")
+        ZStack {
+            ForEach(1..<7) { i in
+                ViewBuilder(settings: FogSettingsManager.shared, textureImage: "fog\(i)")
+            }
+        }
+
     }
 }
 
