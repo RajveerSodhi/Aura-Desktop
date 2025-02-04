@@ -8,6 +8,7 @@ struct ViewBuilder<T: WeatherSettings & ObservableObject>: View {
     
     init(settings: T, textureImage: String) {
         self.settings = settings
+        self.textureImage = textureImage
         
         let scene = SceneBuilder(
             birthRate: settings.birthRate,
@@ -25,7 +26,6 @@ struct ViewBuilder<T: WeatherSettings & ObservableObject>: View {
             alpha: settings.alpha,
             alphaRange: settings.alphaRange
         )
-        
         _scene = StateObject(wrappedValue: scene)
     }
 

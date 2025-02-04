@@ -1,20 +1,21 @@
+////
+////  FogView.swift
+////  Aura Desktop
+////
+////  Created by Rajveer Sodhi on 2025-02-01.
+////
 //
-//  FogView.swift
-//  Aura Desktop
+//import SwiftUI
 //
-//  Created by Rajveer Sodhi on 2025-02-01.
+//struct FogView: View {
+//    var body: some View {
+//        ZStack {
+////            ForEach(1..<7) { i in
+////                ViewBuilder(settings: FogSettingsManager.shared, textureImage: "fog\(i)")
+////            }
+//            ViewBuilder(settings: FogSettingsManager.shared, textureImage: "fog1")
+//        }
 //
-
-import SwiftUI
-
-struct FogView: View {
-    var body: some View {
-        ZStack {
-            ForEach(1..<7) { i in
-                ViewBuilder(settings: FogSettingsManager.shared, textureImage: "fog\(i)")
-            }
-        }
-
-    }
-}
-
+//    }
+//}
+//

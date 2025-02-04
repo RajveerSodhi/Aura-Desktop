@@ -116,7 +116,7 @@ class SceneBuilder: SKScene, ObservableObject {
     
     func calculateFallingLifetime() {
         let width = size.width * (1 + self.angle/60.0)
-        let height = size.width + 10
+        let height = size.height + 10
         let diagonal = pow((pow(width, 2) + pow(height, 2)), 0.5)
         let lifetime = ceil(diagonal / self.Speed)
         
@@ -126,6 +126,9 @@ class SceneBuilder: SKScene, ObservableObject {
     func adjustPositionForHorizontal() {
         if textureImage.contains("fog") || textureImage.contains("cloud") {
             calculateFallingLifetime()
+            
+            self.emitterPosition = CGPoint(x: -10, y: size.height / 2)
+            self.emitterPositionRange = CGVector(dx: 0, dy: size.height)
         }
     }
     
@@ -170,7 +173,7 @@ class SceneBuilder: SKScene, ObservableObject {
     func setSpeed(_ speed: CGFloat) {
         Speed = speed
         sceneEmitter?.particleSpeed = speed
-        calculateLifetime()
+        calculateFallingLifetime()
     }
     
     func setSpeedRange(_ newRange: CGFloat) {
