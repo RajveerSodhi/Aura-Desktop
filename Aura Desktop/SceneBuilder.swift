@@ -108,7 +108,7 @@ class SceneBuilder: SKScene, ObservableObject {
     }
     
     func calculateHorizontalLifetime() {
-        let distance = size.width + 10 + 100
+        let distance = size.width + 2000
         let lifetime = ceil (distance / self.Speed)
         
         self.lifetime = lifetime
@@ -125,15 +125,19 @@ class SceneBuilder: SKScene, ObservableObject {
     
     func adjustPositionForHorizontal() {
         if textureImage.contains("fog") || textureImage.contains("cloud") {
-            calculateFallingLifetime()
+            calculateHorizontalLifetime()
             
-            self.emitterPosition = CGPoint(x: -10, y: size.height / 2)
-            self.emitterPositionRange = CGVector(dx: 0, dy: size.height)
+            self.birthRate = CGFloat.random(in: 0.02..<0.08)
+            
+//            self.Speed = self.Speed * Double.random(in: 0.7...1.1)
+            
+            self.emitterPosition = CGPoint(x: -750 + CGFloat(Int.random(in: -450..<200)), y: size.height / 2  + CGFloat(Int.random(in: -600..<600)))
+            self.emitterPositionRange = CGVector(dx: 0, dy: size.height * 1.2)
         }
     }
     
     func adjustForAngle() {
-        if textureImage.contains("raindrop") || textureImage == "snowflake" {
+        if (textureImage.contains("raindrop") || textureImage == "snowflake") && self.angle != 0 {
             // adjust lifetime, birthrate, and emission position range before adding direction
             let absoluteShift: CGFloat = 1 + self.angle/60.0
             self.birthRate *= absoluteShift
@@ -143,7 +147,14 @@ class SceneBuilder: SKScene, ObservableObject {
             calculateFallingLifetime()
             
             // add direction
-            self.angle *= self.direction
+            if self.direction == -1 && self.angle > 0 {
+                self.angle *= -1
+            }
+            
+            if self.direction == 1 && self.angle < 0 {
+                self.angle *= -1
+            }
+            
             let relativeShift: CGFloat = 1 - self.angle/60.0
             
             // adjust emitter position with angle and direction
