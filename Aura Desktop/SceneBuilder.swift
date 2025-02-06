@@ -67,9 +67,9 @@ class SceneBuilder: SKScene, ObservableObject {
         
         let emitter = SKEmitterNode()
         
-//        adjustForAngle()
-//        adjustPositionForHorizontal()
-//        
+        adjustForAngle()
+        adjustPositionForHorizontal()
+        
         emitter.targetNode = self
         emitter.particleBirthRate = birthRate
         
@@ -109,7 +109,8 @@ class SceneBuilder: SKScene, ObservableObject {
     
     func calculateHorizontalLifetime(extra: CGFloat) {
         let distance = size.width + extra
-        let lifetime = ceil (distance / self.Speed)
+        let speed = self.Speed - self.speedRange
+        let lifetime = ceil (distance / speed)
         
         self.lifetime = lifetime
     }
@@ -118,7 +119,8 @@ class SceneBuilder: SKScene, ObservableObject {
         let width = size.width * (1 + self.angle/60.0)
         let height = size.height + 20
         let diagonal = pow((pow(width, 2) + pow(height, 2)), 0.5)
-        let lifetime = ceil(diagonal / self.Speed)
+        let speed = self.Speed - self.speedRange
+        let lifetime = ceil(diagonal / speed)
         
         self.lifetime = lifetime
     }
@@ -132,7 +134,7 @@ class SceneBuilder: SKScene, ObservableObject {
         }
         
         if textureImage.contains("cloud") {
-            calculateHorizontalLifetime(extra: 1500)
+            calculateHorizontalLifetime(extra: 1700)
             
             self.emitterPosition = CGPoint(x: -500 + CGFloat(Int.random(in: -400..<200)), y: size.height / 2  + CGFloat(Int.random(in: -600..<600)))
             self.emitterPositionRange = CGVector(dx: 0, dy: size.height * 1.5)
@@ -140,7 +142,7 @@ class SceneBuilder: SKScene, ObservableObject {
     }
     
     func adjustForAngle() {
-        if (textureImage.contains("raindrop") || textureImage == "snowflake") && self.angle != 0 {
+        if textureImage.contains("raindrop") || textureImage == "snowflake" {
             // adjust lifetime, birthrate, and emission position range before adding direction
             let absoluteShift: CGFloat = 1 + self.angle/60.0
             self.birthRate *= absoluteShift

@@ -14,14 +14,14 @@ struct CloudView: View {
         ZStack {
             Color.black.opacity(0.5)
 
-            ForEach(1..<7, id: \.self) { i in
+            ForEach(1..<6, id: \.self) { i in
                 if visibleCloud.contains(i) {
                     ViewBuilder(settings: CloudSettingsManager.shared, textureImage: "cloud\(i)")
                 }
             }
         }
         .onAppear {
-            for i in 2..<7 {
+            for i in 2..<6 {
                 let delay = Double.random(in: 3...11)
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                     visibleCloud.insert(i)
