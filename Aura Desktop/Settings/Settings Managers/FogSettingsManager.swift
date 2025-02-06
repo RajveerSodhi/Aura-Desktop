@@ -61,7 +61,7 @@ class FogSettingsManager: ObservableObject, WeatherSettings {
     init() {
         let defaults = UserDefaults.standard
         
-        self.birthRate = defaults.object(forKey: "FogBirthRate") as? CGFloat ?? CGFloat.random(in: 0.02..<0.08)
+        self.birthRate = defaults.object(forKey: "FogBirthRate") as? CGFloat ?? CGFloat.random(in: 0.015..<0.08)
         self.scale = defaults.object(forKey: "FogScale") as? CGFloat ?? 1.7
         self.scaleRange = defaults.object(forKey: "FogScaleRange") as? CGFloat ?? 0.5
         self.speed = defaults.object(forKey: "FogSpeed") as? CGFloat ?? 55

@@ -129,14 +129,29 @@ class SceneBuilder: SKScene, ObservableObject {
         if textureImage.contains("fog") {
             calculateHorizontalLifetime(extra: 2500)
             
-            self.emitterPosition = CGPoint(x: -750 + CGFloat(Int.random(in: -450..<200)), y: size.height / 2  + CGFloat(Int.random(in: -600..<600)))
+            let flowDirection = Int.random(in: 0..<2)
+            if flowDirection == 0 {
+                self.emitterPosition = CGPoint(x: -750 + CGFloat(Int.random(in: -450..<200)), y: size.height / 2  + CGFloat(Int.random(in: -600..<600)))
+            }
+            
+            else {
+                self.emitterPosition = CGPoint(x: size.width + 750 + CGFloat(Int.random(in: -200..<450)), y: size.height / 2  + CGFloat(Int.random(in: -600..<600)))
+                self.Speed *= -1
+            }
             self.emitterPositionRange = CGVector(dx: 0, dy: size.height * 1.2)
         }
         
         if textureImage.contains("cloud") {
             calculateHorizontalLifetime(extra: 1700)
             
-            self.emitterPosition = CGPoint(x: -500 + CGFloat(Int.random(in: -400..<200)), y: size.height / 2  + CGFloat(Int.random(in: -600..<600)))
+            let flowDirection = Int.random(in: 0..<2)
+            if flowDirection == 0 {
+                self.emitterPosition = CGPoint(x: -500 + CGFloat(Int.random(in: -400..<200)), y: size.height / 2  + CGFloat(Int.random(in: -600..<600)))
+            }
+            else {
+                self.emitterPosition = CGPoint(x: size.width + 500 + CGFloat(Int.random(in: -200..<500)), y: size.height / 2  + CGFloat(Int.random(in: -600..<600)))
+                self.Speed *= -1
+            }
             self.emitterPositionRange = CGVector(dx: 0, dy: size.height * 1.5)
         }
     }
