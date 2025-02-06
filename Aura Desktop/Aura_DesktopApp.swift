@@ -37,7 +37,7 @@ struct Aura_DesktopApp: App {
                 window.backgroundColor = .clear
                 window.ignoresMouseEvents = true
                 window.collectionBehavior = [.canJoinAllSpaces, .stationary]
-                window.contentView = NSHostingView(rootView: FogView())
+                window.contentView = NSHostingView(rootView: SnowView())
                 window.makeKeyAndOrderFront(nil)
                 window.orderBack(nil)
                 Self.desktopWindow = window

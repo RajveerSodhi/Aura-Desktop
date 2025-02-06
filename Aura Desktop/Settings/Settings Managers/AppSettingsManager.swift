@@ -17,6 +17,6 @@ class AppSettingsManager: ObservableObject {
     init() {
         let defaults = UserDefaults.standard
 
-        self.frameRate = defaults.object(forKey: "frameRate") as? Int ?? 24
+        self.frameRate = defaults.object(forKey: "frameRate") as? Int ?? 16
     }
 }

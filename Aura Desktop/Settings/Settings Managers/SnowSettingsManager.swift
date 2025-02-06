@@ -72,7 +72,7 @@ class SnowSettingsManager: ObservableObject, WeatherSettings {
         self.bgColor = defaults.object(forKey: "SnowBgColor") as? Color ?? Color.blue
         self.direction = defaults.object(forKey: "SnowDirection") as? CGFloat ?? -1.0
         self.color = defaults.object(forKey: "SnowColor") as? NSColor ?? NSColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1)
-        self.alpha = defaults.object(forKey: "SnowAlpha") as? CGFloat ?? 0.9
-        self.alphaRange = defaults.object(forKey: "SnowAlphaRange") as? CGFloat ?? 0.1
+        self.alpha = defaults.object(forKey: "SnowAlpha") as? CGFloat ?? 1
+        self.alphaRange = defaults.object(forKey: "SnowAlphaRange") as? CGFloat ?? 0
     }
 }

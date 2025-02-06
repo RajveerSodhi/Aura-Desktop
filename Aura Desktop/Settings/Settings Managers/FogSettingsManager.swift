@@ -61,10 +61,10 @@ class FogSettingsManager: ObservableObject, WeatherSettings {
     init() {
         let defaults = UserDefaults.standard
         
-        self.birthRate = defaults.object(forKey: "FogBirthRate") as? CGFloat ?? 0
+        self.birthRate = defaults.object(forKey: "FogBirthRate") as? CGFloat ?? CGFloat.random(in: 0.02..<0.08)
         self.scale = defaults.object(forKey: "FogScale") as? CGFloat ?? 1.7
         self.scaleRange = defaults.object(forKey: "FogScaleRange") as? CGFloat ?? 0.5
-        self.speed = defaults.object(forKey: "FogSpeed") as? CGFloat ?? 50
+        self.speed = defaults.object(forKey: "FogSpeed") as? CGFloat ?? 55
         self.speedRange = defaults.object(forKey: "FogSpeedRange") as? CGFloat ?? 40
         self.angle = defaults.object(forKey: "FogAngle") as? CGFloat ?? 0
         self.angleRange = defaults.object(forKey: "FogAngleRange") as? CGFloat ?? 0
@@ -75,6 +75,6 @@ class FogSettingsManager: ObservableObject, WeatherSettings {
         self.direction = defaults.object(forKey: "FogDirection") as? CGFloat ?? 0
         self.color = defaults.object(forKey: "FogColor") as? NSColor ?? NSColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1)
         self.alpha = defaults.object(forKey: "FogAlpha") as? CGFloat ?? 1.0
-        self.alphaRange = defaults.object(forKey: "FogAlphaRange") as? CGFloat ?? 0.2
+        self.alphaRange = defaults.object(forKey: "FogAlphaRange") as? CGFloat ?? 0
     }
 }

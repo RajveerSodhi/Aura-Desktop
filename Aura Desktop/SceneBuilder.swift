@@ -67,9 +67,9 @@ class SceneBuilder: SKScene, ObservableObject {
         
         let emitter = SKEmitterNode()
         
-        adjustForAngle()
-        adjustPositionForHorizontal()
-        
+//        adjustForAngle()
+//        adjustPositionForHorizontal()
+//        
         emitter.targetNode = self
         emitter.particleBirthRate = birthRate
         
@@ -107,8 +107,8 @@ class SceneBuilder: SKScene, ObservableObject {
         return angle * .pi / 180
     }
     
-    func calculateHorizontalLifetime() {
-        let distance = size.width + 2000
+    func calculateHorizontalLifetime(extra: CGFloat) {
+        let distance = size.width + extra
         let lifetime = ceil (distance / self.Speed)
         
         self.lifetime = lifetime
@@ -116,7 +116,7 @@ class SceneBuilder: SKScene, ObservableObject {
     
     func calculateFallingLifetime() {
         let width = size.width * (1 + self.angle/60.0)
-        let height = size.height + 10
+        let height = size.height + 20
         let diagonal = pow((pow(width, 2) + pow(height, 2)), 0.5)
         let lifetime = ceil(diagonal / self.Speed)
         
@@ -124,15 +124,18 @@ class SceneBuilder: SKScene, ObservableObject {
     }
     
     func adjustPositionForHorizontal() {
-        if textureImage.contains("fog") || textureImage.contains("cloud") {
-            calculateHorizontalLifetime()
-            
-            self.birthRate = CGFloat.random(in: 0.02..<0.08)
-            
-//            self.Speed = self.Speed * Double.random(in: 0.7...1.1)
+        if textureImage.contains("fog") {
+            calculateHorizontalLifetime(extra: 2500)
             
             self.emitterPosition = CGPoint(x: -750 + CGFloat(Int.random(in: -450..<200)), y: size.height / 2  + CGFloat(Int.random(in: -600..<600)))
             self.emitterPositionRange = CGVector(dx: 0, dy: size.height * 1.2)
+        }
+        
+        if textureImage.contains("cloud") {
+            calculateHorizontalLifetime(extra: 1500)
+            
+            self.emitterPosition = CGPoint(x: -500 + CGFloat(Int.random(in: -400..<200)), y: size.height / 2  + CGFloat(Int.random(in: -600..<600)))
+            self.emitterPositionRange = CGVector(dx: 0, dy: size.height * 1.5)
         }
     }
     
